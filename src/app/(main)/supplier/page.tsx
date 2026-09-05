@@ -95,7 +95,7 @@ export default function MasterSupplier() {
             <tr>
               <th>Kode</th>
               <th>Nama Supplier</th>
-              <th>Jenis Material</th>
+              <th>Kelompok</th>
               <th>Contact Person</th>
               <th>No. Telepon</th>
               <th>Email</th>
@@ -154,11 +154,11 @@ export default function MasterSupplier() {
             <div className="form-group">
               <label className="form-label">Jenis Material</label>
               <select className="input" value={jenisSupplier} onChange={e => setJenisSupplier(e.target.value)}>
-                <option>Pasir</option>
-                <option>Cat</option>
-                <option>Bata</option>
-                <option>Rooster</option>
-                <option>Semen</option>
+                <option>Semen & Bahan Dasar</option>
+                <option>Cat & Pelapis</option>
+                <option>Keramik & Granit</option>
+                <option>Pipa & Sanitasi</option>
+                <option>Kayu & Triplek</option>
                 <option>Besi & Baja</option>
               </select>
             </div>
