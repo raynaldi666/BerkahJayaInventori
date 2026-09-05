@@ -160,7 +160,6 @@ export default function MasterSupplier() {
                 <option>Rooster</option>
                 <option>Semen</option>
                 <option>Besi & Baja</option>
-               
               </select>
             </div>
             <div className="form-group">

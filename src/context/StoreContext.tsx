@@ -229,7 +229,61 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   const updateBarang = async (id: string, data: Partial<Barang>) => {
     const target = barang.find(b => b.id === id);
-    if (target) await setDoc(doc(db, 'barang', id), { ...target, ...data });
+     if (!target) return;
+
+    // If kategori is changing, create a new ID and migrate references.
+    if (data.kategori && data.kategori !== target.kategori) {
+      const newId = genIdBarang(data.kategori);
+      const newBarang: Barang = { ...target, ...data, id: newId } as Barang;
+
+      // Create new barang document with the new ID
+      await setDoc(doc(db, 'barang', newId), newBarang);
+
+      // Update references in pembelian (detail.barangId, detail.kodeBarang, detail.namaBarang)
+      for (const p of pembelian) {
+        let changed = false;
+        const newDetail = p.detail.map(d => {
+          if (d.barangId === id) {
+            changed = true;
+            return { ...d, barangId: newId, kodeBarang: newId, namaBarang: newBarang.nama }; 
+          }
+          return d;
+        });
+        if (changed) {
+          await setDoc(doc(db, 'pembelian', p.id), { ...p, detail: newDetail });
+        }
+      }
+
+      // Update references in penjualan (detail.barangId, detail.kodeBarang, detail.namaBarang)
+      for (const p of penjualan) {
+        let changed = false;
+        const newDetail = p.detail.map(d => {
+          if (d.barangId === id) {
+            changed = true;
+            return { ...d, barangId: newId, kodeBarang: newId, namaBarang: newBarang.nama };
+          }
+          return d;
+        });
+        if (changed) {
+          await setDoc(doc(db, 'penjualan', p.id), { ...p, detail: newDetail });
+        }
+      }
+
+      // Update references in adjustment (barangId, namaBarang)
+      for (const a of adjustment) {
+        if (a.barangId === id) {
+          await setDoc(doc(db, 'adjustment', a.id), { ...a, barangId: newId, namaBarang: newBarang.nama });
+        }
+      }
+
+      // Remove old barang document
+      await deleteDoc(doc(db, 'barang', id));
+
+      return;
+    }
+
+    // Default: update in-place
+    await setDoc(doc(db, 'barang', id), { ...target, ...data });
   };
 
   // ==================== 3. MASTER SUPPLIER ====================

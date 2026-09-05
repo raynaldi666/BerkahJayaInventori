@@ -198,7 +198,7 @@ export default function MasterBarang() {
         <div className="form-row">
           <div className="form-group">
             <label className="form-label">Kelompok (Kategori)</label>
-            <select className="input" value={kategori} onChange={e => setKategori(e.target.value)} disabled={!!editId}>
+            <select className="input" value={kategori} onChange={e => setKategori(e.target.value)}>
               <option>Semen & Bahan Dasar</option>
               <option>Besi & Baja</option>
               <option>Cat & Pelapis</option>
