@@ -152,7 +152,7 @@ export default function MasterSupplier() {
 
           <div className="form-row">
             <div className="form-group">
-              <label className="form-label">Kelompok</label>
+              <label className="form-label">Kelompok (kategori)</label>
               <select className="input" value={jenisSupplier} onChange={e => setJenisSupplier(e.target.value)}>
                 <option>Semen & Bahan Dasar</option>
                 <option>Cat & Pelapis</option>
