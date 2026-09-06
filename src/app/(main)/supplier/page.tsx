@@ -14,7 +14,7 @@ export default function MasterSupplier() {
   
   // Form States
   const [nama, setNama] = useState('');
-  const [jenisSupplier, setJenisSupplier] = useState('Pasir');
+  const [jenisSupplier, setJenisSupplier] = useState('Semen & Bahan Dasar');
   const [kontakOrang, setKontakOrang] = useState('');
   const [telp, setTelp] = useState('');
   const [telpSeluler, setTelpSeluler] = useState('');
@@ -25,7 +25,7 @@ export default function MasterSupplier() {
   const handleKlikEdit = (s: Supplier) => {
     setEditId(s.id);
     setNama(s.nama);
-    setJenisSupplier(s.jenisSupplier || 'Pasir');
+    setJenisSupplier(s.jenisSupplier || 'Semen & Bahan Dasar');
     setKontakOrang(s.kontakOrang);
     setTelp(s.telp);
     setTelpSeluler(s.telpSeluler);
@@ -72,7 +72,7 @@ export default function MasterSupplier() {
   const resetForm = () => {
     setEditId(null);
     setNama('');
-    setJenisSupplier('Pasir');
+    setJenisSupplier('Semen & Bahan Dasar');
     setKontakOrang('');
     setTelp('');
     setTelpSeluler('');
